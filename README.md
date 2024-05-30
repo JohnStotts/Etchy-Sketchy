@@ -5,9 +5,15 @@ Etchy-Sketchy is a web-based drawing application inspired by the classic Etch-A-
 It includes features like resizing the grid, clearing the drawing, and a rainbow mode for colorful, random sketches. 
 This project is perfect for beginners looking to practice HTML, CSS, and JavaScript.
 
+
 Features: 
+
 Grid Drawing: Draw by hovering over grid cells.
+
 Resizable Grid: Adjust the size of the grid to change the drawing area.
-Clear Functionality: Clear the entire grid to start a new drawing.
+
+Clear Function: Reset the entire grid to start a new drawing.
+
 Rainbow Mode: Toggle rainbow mode to draw with random colors.
+
 User-Friendly Interface: Simple controls for easy interaction
