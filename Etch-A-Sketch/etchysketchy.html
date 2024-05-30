@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etchy-Sketchy</title>
+    <style>
+
+        /* Grid Styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .cell {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .input {
+            width: 50px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Etchy-Sketchy</h1>
+    <div class="controls">
+        <input type="number" class="input" id="gridSize" value="30" max="100">
+        <button class="button" id="resizeGrid">Resize Grid</button>
+        <button class="button" id="clearGrid">Clear</button>
+        <button class="button" id="rainbowMode">Rainbow Mode</button>
+    </div>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById('container');
+        let gridSize = 30;
+        let rainbowMode = false;
+
+        // Create grid
+        createGrid(gridSize);
+
+        // Add event listener to cells
+        function addCellListeners() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.addEventListener('mouseover', () => {
+                    if (rainbowMode) {
+                        cell.style.backgroundColor = getRandomColor();
+                    } else {
+                        cell.style.backgroundColor = 'black';
+                    }
+                });
+            });
+        }
+        addCellListeners();
+
+        // Resize grid
+        document.getElementById('resizeGrid').addEventListener('click', () => {
+            gridSize = document.getElementById('gridSize').value;
+            container.innerHTML = '';
+            createGrid(gridSize);
+            addCellListeners();
+        });
+
+        // Clear grid
+        document.getElementById('clearGrid').addEventListener('click', () => {
+            clearGrid();
+        });
+
+        // Rainbow mode
+        document.getElementById('rainbowMode').addEventListener('click', () => {
+            rainbowMode = !rainbowMode;
+        });
+
+        // Create grid function
+        function createGrid(size) {
+            for (let i = 0; i < size; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                for (let j = 0; j < size; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    row.appendChild(cell);
+                }
+                container.appendChild(row);
+            }
+        }
+
+        // Rainbow mode helper function
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Clear grid function
+        function clearGrid() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.style.backgroundColor = 'white';
+            });
+        }
+    </script>
+</body>
+</html>
